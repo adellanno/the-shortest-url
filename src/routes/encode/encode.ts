@@ -1,5 +1,5 @@
 import express, { Router, Request, Response } from 'express';
-import { encodeUrl } from '../../controllers/encode'
+import { encodeUrl } from '../../controllers/encode/encode'
 
 const router: Router = express.Router()
 
