@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import { encodeController } from "./encode";
+import * as EncodeController from './encode';
+import * as DatabaseQueries from '../../services/database/queries';
+
 
 describe('encode controller', () => {
     let mockRequest: Partial<Request>;
     let mockResponse: Partial<Response>;
-    // let nextFunction: NextFunction = jest.fn();
 
     beforeEach(() => {
       mockRequest = {
@@ -43,4 +45,22 @@ describe('encode controller', () => {
         expect(mockResponse.send).toBeCalledWith("The provided url is not valid")
     })
 
+    it('should invoke the recursive collision check 4 times if three collisions are detected', () => {
+        mockRequest = { 
+            body: { 
+                url: 'www.example.com/page/1325335' 
+            }
+        }
+        const recursiveCollisionCheckMock = jest.spyOn(EncodeController, 'recursiveCollisionCheck')
+        jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce({ id: 'firstcollision', url: 'www.example.com/page/245151' })
+        jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce({ id: 'secondcollision', url: 'www.example.com/page/789132' })
+        jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce({ id: 'thirdcollision', url: 'www.example.com/page/983141' })
+
+        encodeController(
+            mockRequest as Request,
+            mockResponse as Response
+        )
+
+        expect(recursiveCollisionCheckMock).toBeCalledTimes(4)
+    })
 })
