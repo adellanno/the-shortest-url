@@ -1,8 +1,8 @@
 import express, { Router, Request, Response } from 'express';
-import { encodeUrl } from '../../controllers/encode/encode'
+import { encodeController } from '../../controllers/encode/encode'
 
 const router: Router = express.Router()
 
-router.post("/", encodeUrl)
+router.post("/", encodeController)
 
 export default router;
