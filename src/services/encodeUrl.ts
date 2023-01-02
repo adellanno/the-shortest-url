@@ -1,9 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-
-export type EncryptedUrlObject = {
-    id: string;
-    url: string;
-}
+import { EncryptedUrlObject } from '../types'
 
 export const encodeUrl = (url: string): EncryptedUrlObject => {
     // generate random string, removing empty characters and limit length to 7 characters.

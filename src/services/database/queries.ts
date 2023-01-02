@@ -1,17 +1,8 @@
 import Nodecache from './database'
-import { EncryptedUrlObject } from '../encodeUrl'
+import { EncryptedUrlObject, ShortUrl } from '../../types'
 
 
 // abstraction of a database layer allowing this faux database (using node-cache) to be easily swapped in future
-
-export type ShortUrl = {
-    id: string;
-    url: string;
-    shortUrl: string;
-    isActive: boolean;
-    isDeleted: boolean;
-    createdAt: number;
-}
 
 export const storeEncryptedUrl = (EncryptedUrlObject: EncryptedUrlObject): ShortUrl | Boolean => {
     const { id, url } = EncryptedUrlObject;
