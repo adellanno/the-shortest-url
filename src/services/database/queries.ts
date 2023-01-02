@@ -4,20 +4,43 @@ import { EncryptedUrlObject } from '../encodeUrl'
 
 // abstraction of a database layer allowing this faux database (using node-cache) to be easily swapped in future
 
-export const storeEncryptedUrl = (EncryptedUrlObject: EncryptedUrlObject) => {
-
-    if (!EncryptedUrlObject.id) return
-    
-    // utilising the expiry is one means of preventing hash collisions 
-    Nodecache.set(EncryptedUrlObject.id, EncryptedUrlObject, 10000);
+export type ShortUrl = {
+    id: string;
+    url: string;
+    shortUrl: string;
+    isActive: boolean;
+    isDeleted: boolean;
+    createdAt: number;
 }
 
-export const getEncryptedUrl = (id?: string): EncryptedUrlObject | null => {
+export const storeEncryptedUrl = (EncryptedUrlObject: EncryptedUrlObject): ShortUrl | Boolean => {
+    const { id, url } = EncryptedUrlObject;
+
+    if (!id || !url) return false
+    
+    const shortUrl: ShortUrl = {
+        id,
+        url,
+        shortUrl: `https://shorturl.com/${id}`,
+        isActive: true,
+        isDeleted: false,
+        createdAt: Math.floor(Date.now() / 1000)
+    }
+    
+    // utilising the expiry is one means of preventing hash collisions 
+    const response = Nodecache.set(id, shortUrl, 10000);
+
+    if (!response) return false;
+
+    return shortUrl
+}
+
+export const getEncryptedUrl = (id?: string) => {
     if (!id) return null
 
-    const encryptedUrl = Nodecache.get(id);
+    const shortUrl = Nodecache.get(id);
 
-    if (!encryptedUrl) return null
+    if (!shortUrl) return null
 
-    return encryptedUrl
+    return shortUrl
 }
