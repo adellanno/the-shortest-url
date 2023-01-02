@@ -35,10 +35,10 @@ export const storeEncryptedUrl = (EncryptedUrlObject: EncryptedUrlObject): Short
     return shortUrl
 }
 
-export const getEncryptedUrl = (id?: string) => {
+export const getEncryptedUrl = (id: string): ShortUrl | null => {
     if (!id) return null
 
-    const shortUrl = Nodecache.get(id);
+    const shortUrl: ShortUrl = Nodecache.get(id) as ShortUrl
 
     if (!shortUrl) return null
 

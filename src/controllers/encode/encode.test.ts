@@ -16,7 +16,7 @@ describe('encode controller', () => {
       };
     });
 
-    it ('should return a 400 Bad Request status and url missing message if the url provided is not a valid url', () => {
+    it ('should return a 400 Bad Request status and relevant message if the url is not provided', () => {
         mockRequest = { 
             body: { 
                 url: '' 
@@ -33,7 +33,7 @@ describe('encode controller', () => {
     it ('should return a 400 Bad Request status and url missing message if the url contains suspicious characters', () => {
         mockRequest = { 
             body: { 
-                url: 'www.example.co.uk/<>s' 
+                url: 'https://example.co.uk/<>s' 
             }
         }
         encodeController(
@@ -65,10 +65,32 @@ describe('encode controller', () => {
             }
         }
         const recursiveCollisionCheckMock = jest.spyOn(EncodeController, 'recursiveCollisionCheck')
-        jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce({ id: 'firstcollision', url: 'www.example.com/page/245151' })
-        jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce({ id: 'secondcollision', url: 'www.example.com/page/789132' })
-        jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce({ id: 'thirdcollision', url: 'www.example.com/page/983141' })
+        jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce({
+            "createdAt": 1672682487, 
+            "id": "LAM39AX", 
+            "isActive": true, 
+            "isDeleted": false, 
+            "shortUrl": "https://shorturl.com/LAM39AX", 
+            "url": "https://example.com/page/245151"
+        })
+        jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce({
+            "createdAt": 1672682487, 
+            "id": "XAKF0LA", 
+            "isActive": true, 
+            "isDeleted": false, 
+            "shortUrl": "https://shorturl.com/XAKF0LA", 
+            "url": "https://example.com/page/245151"
+        })
 
+        jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce({
+            "createdAt": 1672682487, 
+            "id": "MN293AL", 
+            "isActive": true, 
+            "isDeleted": false, 
+            "shortUrl": "https://shorturl.com/MN293AL", 
+            "url": "https://example.com/page/245151"
+        })
+ 
         encodeController(
             mockRequest as Request,
             mockResponse as Response
@@ -80,7 +102,7 @@ describe('encode controller', () => {
     it('should return a 200 success response if storeEncryptedUrl is successful', () => {
         mockRequest = { 
             body: { 
-                url: 'www.example.com/page/1325335' 
+                url: 'https://example.com/page/1325335' 
             }
         }
         jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce(null)
@@ -91,7 +113,7 @@ describe('encode controller', () => {
                 "isActive": true, 
                 "isDeleted": false, 
                 "shortUrl": "https://shorturl.com/258aa2c", 
-                "url": "www.example.com/page/1325335"
+                "url": "https://example.com/page/1325335"
             }
         )
 
@@ -107,14 +129,14 @@ describe('encode controller', () => {
             "isActive": true, 
             "isDeleted": false, 
             "shortUrl": "https://shorturl.com/258aa2c", 
-            "url": "www.example.com/page/1325335"
+            "url": "https://example.com/page/1325335"
         })
     })
 
     it('should return a 500 response if storeEncryptedUrl returns false', () => {
         mockRequest = { 
             body: { 
-                url: 'www.example.com/page/1325335' 
+                url: 'https://example.com/page/1325335' 
             }
         }
         jest.spyOn(DatabaseQueries, 'getEncryptedUrl').mockReturnValueOnce(null)
