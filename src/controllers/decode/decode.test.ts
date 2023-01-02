@@ -27,7 +27,7 @@ describe('decode controller', () => {
             mockResponse as Response
         )
         expect(mockResponse.status).toBeCalledWith(400)
-        expect(mockResponse.send).toBeCalledWith("A url must be provided")
+        expect(mockResponse.send).toBeCalledWith({"data": null, "message": "A url must be provided"})
     })
 
     it ('should return a 400 Bad Request status and url missing message if the url contains suspicious characters', () => {
@@ -41,7 +41,7 @@ describe('decode controller', () => {
             mockResponse as Response
         )
         expect(mockResponse.status).toBeCalledWith(400)
-        expect(mockResponse.send).toBeCalledWith("The provided url is not valid")
+        expect(mockResponse.send).toBeCalledWith({"data": null, "message": "The provided url is not valid"})
     })
 
     it ('should return a 400 Bad Request status and relevant error message if the url provided is not a valid url', () => {
@@ -55,7 +55,7 @@ describe('decode controller', () => {
             mockResponse as Response
         )
         expect(mockResponse.status).toBeCalledWith(400)
-        expect(mockResponse.send).toBeCalledWith("The provided url is not valid")
+        expect(mockResponse.send).toBeCalledWith({"data": null, "message": "The provided url is not valid"})
     })
 
     it ('should return a 400 Bad Request status and relevant error message if there is no path on the url', () => {
@@ -69,7 +69,7 @@ describe('decode controller', () => {
             mockResponse as Response
         )
         expect(mockResponse.status).toBeCalledWith(400)
-        expect(mockResponse.send).toBeCalledWith("The provided url is not valid")
+        expect(mockResponse.send).toBeCalledWith({"data": null, "message": "The provided url is not valid"})
     })
 
     it ('should return a 404 not found and relevant error message if no matching url is found', () => {
@@ -85,7 +85,7 @@ describe('decode controller', () => {
             mockResponse as Response
         )
         expect(mockResponse.status).toBeCalledWith(404)
-        expect(mockResponse.send).toBeCalledWith("The page you are looking for might have been removed, had its name changed or is unavailable.")
+        expect(mockResponse.send).toBeCalledWith({"data": null, "message": "The page you are looking for might have been removed, had its name changed or is unavailable."})
     })
 
     it ('should return a 200 success response and the url data if a matching url is found', () => {
@@ -109,13 +109,15 @@ describe('decode controller', () => {
         )
         expect(mockResponse.status).toBeCalledWith(200)
         expect(mockResponse.send).toBeCalledWith({
-            "createdAt": 1672682487, 
-            "id": "258aa2c", 
-            "isActive": true, 
-            "isDeleted": false, 
-            "shortUrl": "https://shorturl.com/258aa2c", 
-            "url": "https://example.com/page/1325335"
+            "message": "Success.",
+            "data": {
+                "createdAt": 1672682487, 
+                "id": "258aa2c", 
+                "isActive": true, 
+                "isDeleted": false, 
+                "shortUrl": "https://shorturl.com/258aa2c", 
+                "url": "https://example.com/page/1325335"
+            }
         })
     })
-
 })

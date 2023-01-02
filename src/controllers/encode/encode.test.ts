@@ -27,7 +27,7 @@ describe('encode controller', () => {
             mockResponse as Response
         )
         expect(mockResponse.status).toBeCalledWith(400)
-        expect(mockResponse.send).toBeCalledWith("A url must be provided")
+        expect(mockResponse.send).toBeCalledWith({"data": null, "message": "A url must be provided"})
     })
 
     it ('should return a 400 Bad Request status and url missing message if the url contains suspicious characters', () => {
@@ -41,7 +41,7 @@ describe('encode controller', () => {
             mockResponse as Response
         )
         expect(mockResponse.status).toBeCalledWith(400)
-        expect(mockResponse.send).toBeCalledWith("The provided url is not valid")
+        expect(mockResponse.send).toBeCalledWith({"data": null, "message": "The provided url is not valid"})
     })
 
     it ('should return a 400 Bad Request status and relevant error message if the url provided is not a valid url', () => {
@@ -55,7 +55,7 @@ describe('encode controller', () => {
             mockResponse as Response
         )
         expect(mockResponse.status).toBeCalledWith(400)
-        expect(mockResponse.send).toBeCalledWith("The provided url is not valid")
+        expect(mockResponse.send).toBeCalledWith({"data": null, "message": "The provided url is not valid"})
     })
 
     it('should invoke the recursive collision check 4 times if three collisions are detected', () => {
@@ -124,12 +124,15 @@ describe('encode controller', () => {
 
         expect(mockResponse.status).toBeCalledWith(200)
         expect(mockResponse.send).toBeCalledWith({
-            "createdAt": 1672682487, 
-            "id": "258aa2c", 
-            "isActive": true, 
-            "isDeleted": false, 
-            "shortUrl": "https://shorturl.com/258aa2c", 
-            "url": "https://example.com/page/1325335"
+            "message": "Success.",
+            "data": {
+                "createdAt": 1672682487, 
+                "id": "258aa2c", 
+                "isActive": true, 
+                "isDeleted": false, 
+                "shortUrl": "https://shorturl.com/258aa2c", 
+                "url": "https://example.com/page/1325335"
+            }
         })
     })
 
@@ -148,6 +151,6 @@ describe('encode controller', () => {
         )
 
         expect(mockResponse.status).toBeCalledWith(500)
-        expect(mockResponse.send).toBeCalledWith('An unexpected error occured, please try again.')
+        expect(mockResponse.send).toBeCalledWith({"data": null, "message": "An unexpected error occured, please try again."})
     })
 })
