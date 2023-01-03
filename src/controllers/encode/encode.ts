@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import validator from 'validator';
-import { encodeUrl } from '#services/encodeUrl'
-import { getEncryptedUrl, storeEncryptedUrl } from '#services/store/store';
+import { encodeUrl } from '../../services/encodeUrl'
+import { getEncryptedUrl, storeEncryptedUrl } from '../../services/store/store';
 import { EncryptedUrlObject } from '../../types'
-import { transformResponse } from '#utils/transformResponse';
+import { transformResponse } from '../../utils/transformResponse';
 
 export const encodeController = ((req: Request, res: Response) => {
     try {
@@ -34,7 +34,7 @@ export const encodeController = ((req: Request, res: Response) => {
     }
 })
 
-export const recursiveCollisionCheck = (encodedUrlObject: EncryptedUrlObject): EncryptedUrlObject  => {
+export const recursiveCollisionCheck = (encodedUrlObject: EncryptedUrlObject,): EncryptedUrlObject  => {
     if (getEncryptedUrl(encodedUrlObject.id)) {
         const newEncodedUrlObject: EncryptedUrlObject = encodeUrl(encodedUrlObject.url)
         recursiveCollisionCheck(newEncodedUrlObject)

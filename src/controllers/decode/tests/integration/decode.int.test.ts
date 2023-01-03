@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { decodeController } from "#controllers/decode/decode";
-import NodeCache from '#services/store/database'
-import { storeEncryptedUrl } from '#services/store/store';
+import { decodeController } from "../../../../controllers/decode/decode";
+import NodeCache from '../../../../services/store/database'
+import { storeEncryptedUrl } from '../../../../services/store/store';
 
 describe('decode controller integration tests', () => {
     let mockRequest: Partial<Request>;

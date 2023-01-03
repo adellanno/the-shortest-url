@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { decodeController } from "../../decode";
-import * as DatabaseQueries from '#services/store/store';
+import * as DatabaseQueries from '../../../../services/store/store';
 
 
 describe('decode controller', () => {

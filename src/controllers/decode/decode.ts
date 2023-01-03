@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import validator from 'validator';
-import { getEncryptedUrl } from '#services/store/store';
-import { transformResponse } from '#utils/transformResponse';
+import { getEncryptedUrl } from '../../services/store/store';
+import { transformResponse } from '../../utils/transformResponse';
 
 export const decodeController = ((req: Request, res: Response) => {
     try {

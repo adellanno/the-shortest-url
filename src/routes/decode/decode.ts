@@ -1,8 +1,9 @@
 import express, { Router, Request, Response } from 'express';
 import { decodeController } from '../../controllers/decode/decode'
+import { rateLimiter } from '../../middleware/rateLimiter'
 
 const router: Router = express.Router()
 
-router.get("/", decodeController)
+router.get("/", rateLimiter, decodeController)
 
 export default router
