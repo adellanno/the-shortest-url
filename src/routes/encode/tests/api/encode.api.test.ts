@@ -1,14 +1,10 @@
-import { app, server } from '../../../../../index'
+import { app } from '../../../../../index'
 import request  from 'supertest'
 import NodeCache from '#services/store/database'
 
 describe('POST /encode', () => {
      afterEach(() => {
         NodeCache.flushAll()
-     })
-
-     afterAll(() => {
-        server.close()
      })
      
     it('responds with a 400 code if not url is provided', async () => {

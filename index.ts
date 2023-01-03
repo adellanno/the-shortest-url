@@ -7,14 +7,9 @@ import helmet from 'helmet';
 dotenv.config();
 
 export const app: Express = express();
-const port = process.env.PORT;
 
 app.use(helmet())
 app.use(express.json())
 
 app.use('/decode', decodeRoute)
 app.use('/encode', encodeRoute)
-
-export const server = app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
