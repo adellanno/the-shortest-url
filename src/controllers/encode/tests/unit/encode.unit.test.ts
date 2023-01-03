@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import { encodeController } from "./encode";
-import * as EncodeController from './encode';
-import * as DatabaseQueries from '../../services/database/queries';
+import { Request, Response } from "express";
+import { encodeController } from "../../encode";
+import * as EncodeController from '../../encode';
+import * as DatabaseQueries from '#services/store/store';
 
 describe('encode controller', () => {
     let mockRequest: Partial<Request>;

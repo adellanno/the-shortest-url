@@ -1,6 +1,6 @@
 
-import NodeCache from './database'
-import { getEncryptedUrl, storeEncryptedUrl } from './queries'
+import NodeCache from '../database'
+import { getEncryptedUrl, storeEncryptedUrl } from '../store'
 
 describe('database', () => {
     beforeEach(() => {
@@ -11,20 +11,20 @@ describe('database', () => {
 
         it('should not store the encrypted url if unique id is missing', () => {
             const setMock = jest.spyOn(NodeCache, 'set')
-            storeEncryptedUrl({ id: '', url: 'whttps://example.com/page/125124'})
+            storeEncryptedUrl({ id: '', url: 'https://example.com/page/125124'})
             expect(setMock).toBeCalledTimes(0)
         })
     
         it('should correctly store the encrypted url if all data is present and return the transformed object', () => {
             const setMock = jest.spyOn(NodeCache, 'set')
-            expect(storeEncryptedUrl({ id: 'MA9GFA9', url: 'whttps://example.com/page/125124'})).toEqual(
+            expect(storeEncryptedUrl({ id: 'MA9GFA9', url: 'https://example.com/page/125124'})).toEqual(
                 {
                     createdAt: 1672679916, 
                     id: "MA9GFA9", 
                     isActive: true, 
                     isDeleted: false, 
                     shortUrl: "https://shorturl.com/MA9GFA9", 
-                    url: "whttps://example.com/page/125124"
+                    url: "https://example.com/page/125124"
                 }
             )
             expect(setMock).toBeCalledTimes(1)
@@ -41,7 +41,7 @@ describe('database', () => {
             jest.spyOn(NodeCache, 'get').mockReturnValue(
                 { 
                     id: 'MA9GFA9', 
-                    url: 'whttps://example.com/page/125124',
+                    url: 'https://example.com/page/125124',
                     shortUrl: 'https://shorturl.com/MA9GFA9',
                     isActive: true,
                     isDeleted: false,
@@ -50,7 +50,7 @@ describe('database', () => {
             )
             expect(getEncryptedUrl('HA0429A')).toEqual({ 
                 id: 'MA9GFA9', 
-                url: 'whttps://example.com/page/125124',
+                url: 'https://example.com/page/125124',
                 shortUrl: 'https://shorturl.com/MA9GFA9',
                 isActive: true,
                 isDeleted: false,
