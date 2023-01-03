@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import validator from 'validator';
-import { getEncryptedUrl } from '../../services/database/queries';
-import { transformResponse } from '../../utils/transformResponse';
+import { getEncryptedUrl } from '#services/store/store';
+import { transformResponse } from '#utils/transformResponse';
 
 export const decodeController = ((req: Request, res: Response) => {
     try {
@@ -14,9 +14,9 @@ export const decodeController = ((req: Request, res: Response) => {
             return res.status(400).send(transformResponse("The provided url is not valid"))
         } 
 
-        const path = new URL(encryptedUrl).pathname
+        let path = new URL(encryptedUrl).pathname.split('/')[1]
         
-        if (!path || path === '/') {
+        if (!path) {
             return res.status(400).send(transformResponse("The provided url is not valid"))
         }
 

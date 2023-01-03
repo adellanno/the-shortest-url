@@ -1,4 +1,4 @@
-import { transformResponse } from './transformResponse'
+import { transformResponse } from '#utils/transformResponse'
 
 describe('transformResponse', () => {
     it('should sucessfully transform a response if only a message is given', () => {
