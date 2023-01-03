@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { encodeController } from "#controllers/encode/encode";
-import NodeCache from '#services/store/database'
+import { encodeController } from "../../../../controllers/encode/encode";
+import NodeCache from '../../../../services/store/database'
 
 describe('encode controller integration tests', () => {
     let mockRequest: Partial<Request>;

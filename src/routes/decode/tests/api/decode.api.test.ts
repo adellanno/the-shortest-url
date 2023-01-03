@@ -1,6 +1,6 @@
 import { app } from '../../../../../index'
 import request  from 'supertest'
-import NodeCache from '#services/store/database'
+import NodeCache from '../../../../services/store/database'
 
 describe('GET /decode', () => {
      afterEach(() => {
