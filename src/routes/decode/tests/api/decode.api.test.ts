@@ -1,4 +1,4 @@
-import { app, server } from '../../../../../index'
+import { app } from '../../../../../index'
 import request  from 'supertest'
 import NodeCache from '#services/store/database'
 
@@ -7,10 +7,6 @@ describe('GET /decode', () => {
         NodeCache.flushAll()
      })
 
-     afterAll(() => {
-        server.close()
-     })
-     
     it('responds with a 400 code if not url is provided', async () => {
         const response = await request(app)
             .get('/decode?encryptedUrl=')
