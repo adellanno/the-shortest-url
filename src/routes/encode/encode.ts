@@ -1,4 +1,4 @@
-import express, { Router, Request, Response } from 'express';
+import express, { Router } from 'express';
 import { encodeController } from '../../controllers/encode/encode'
 
 const router: Router = express.Router()
