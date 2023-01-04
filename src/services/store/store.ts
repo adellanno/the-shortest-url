@@ -1,12 +1,12 @@
 import Nodecache from "./database";
-import { EncryptedUrlObject, ShortUrl, CreateShortUrlResponse } from "../../types";
+import { EncodedUrlObject, ShortUrl, CreateShortUrlResponse } from "../../types";
 
 // abstraction of a database layer allowing this faux database (using node-cache) to be easily swapped in future
 
-export const storeEncryptedUrl = (
-  EncryptedUrlObject: EncryptedUrlObject
+export const storeEncodedUrl = (
+  EncodedUrlObject: EncodedUrlObject
 ): CreateShortUrlResponse | Boolean => {
-  const { id, url } = EncryptedUrlObject;
+  const { id, url } = EncodedUrlObject;
 
   if (!id || !url) return false;
 
@@ -33,7 +33,7 @@ export const storeEncryptedUrl = (
   return createShortUrlResponse;
 };
 
-export const getEncryptedUrl = (id: string): ShortUrl | null => {
+export const getEncodedUrl = (id: string): ShortUrl | null => {
   if (!id) return null;
 
   const shortUrl: ShortUrl = Nodecache.get(id) as ShortUrl;

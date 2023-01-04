@@ -67,7 +67,7 @@ describe("encode controller", () => {
       EncodeController,
       "recursiveCollisionCheck"
     );
-    jest.spyOn(DatabaseQueries, "getEncryptedUrl").mockReturnValueOnce({
+    jest.spyOn(DatabaseQueries, "getEncodedUrl").mockReturnValueOnce({
       createdAt: 1672682487,
       id: "LAM39AX",
       isActive: true,
@@ -75,7 +75,7 @@ describe("encode controller", () => {
       shortUrl: "https://shorturl.com/LAM39AX",
       url: "https://example.com/page/245151",
     });
-    jest.spyOn(DatabaseQueries, "getEncryptedUrl").mockReturnValueOnce({
+    jest.spyOn(DatabaseQueries, "getEncodedUrl").mockReturnValueOnce({
       createdAt: 1672682487,
       id: "XAKF0LA",
       isActive: true,
@@ -84,7 +84,7 @@ describe("encode controller", () => {
       url: "https://example.com/page/245151",
     });
 
-    jest.spyOn(DatabaseQueries, "getEncryptedUrl").mockReturnValueOnce({
+    jest.spyOn(DatabaseQueries, "getEncodedUrl").mockReturnValueOnce({
       createdAt: 1672682487,
       id: "MN293AL",
       isActive: true,
@@ -98,14 +98,14 @@ describe("encode controller", () => {
     expect(recursiveCollisionCheckMock).toBeCalledTimes(4);
   });
 
-  it("should return a 200 success response if storeEncryptedUrl is successful", () => {
+  it("should return a 200 success response if storeEncodedUrl is successful", () => {
     mockRequest = {
       body: {
         url: "https://example.com/page/1325335",
       },
     };
-    jest.spyOn(DatabaseQueries, "getEncryptedUrl").mockReturnValueOnce(null);
-    jest.spyOn(DatabaseQueries, "storeEncryptedUrl").mockReturnValueOnce({
+    jest.spyOn(DatabaseQueries, "getEncodedUrl").mockReturnValueOnce(null);
+    jest.spyOn(DatabaseQueries, "storeEncodedUrl").mockReturnValueOnce({
       id: "258aa2c",
       shortUrl: "https://shorturl.com/258aa2c",
       url: "https://example.com/page/1325335",
@@ -124,14 +124,14 @@ describe("encode controller", () => {
     });
   });
 
-  it("should return a 500 response if storeEncryptedUrl returns false", () => {
+  it("should return a 500 response if storeEncodedUrl returns false", () => {
     mockRequest = {
       body: {
         url: "https://example.com/page/1325335",
       },
     };
-    jest.spyOn(DatabaseQueries, "getEncryptedUrl").mockReturnValueOnce(null);
-    jest.spyOn(DatabaseQueries, "storeEncryptedUrl").mockReturnValueOnce(false);
+    jest.spyOn(DatabaseQueries, "getEncodedUrl").mockReturnValueOnce(null);
+    jest.spyOn(DatabaseQueries, "storeEncodedUrl").mockReturnValueOnce(false);
 
     encodeController(mockRequest as Request, mockResponse as Response);
 

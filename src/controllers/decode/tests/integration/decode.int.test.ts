@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { decodeController } from "../../../../controllers/decode/decode";
 import NodeCache from "../../../../services/store/database";
-import { storeEncryptedUrl } from "../../../../services/store/store";
+import { storeEncodedUrl } from "../../../../services/store/store";
 
 describe("decode controller integration tests", () => {
   let mockRequest: Partial<Request>;
@@ -22,7 +22,7 @@ describe("decode controller integration tests", () => {
   it("should return a 404 response if no matching url can be found", () => {
     mockRequest = {
       query: {
-        encryptedUrl: "https://shorturl.com/LK84621",
+        encodedUrl: "https://shorturl.com/LK84621",
       },
     };
     decodeController(mockRequest as Request, mockResponse as Response);
@@ -35,14 +35,14 @@ describe("decode controller integration tests", () => {
   });
 
   it("should return a 200 response if a matching url is found", () => {
-    storeEncryptedUrl({
+    storeEncodedUrl({
       id: "AB67GH",
       url: "https://example.com/page/XNSIAF9",
     });
 
     mockRequest = {
       query: {
-        encryptedUrl: "https://shorturl.com/AB67GH",
+        encodedUrl: "https://shorturl.com/AB67GH",
       },
     };
     decodeController(mockRequest as Request, mockResponse as Response);
