@@ -1,9 +1,9 @@
-import express, { Router } from 'express';
-import { decodeController } from '../../controllers/decode/decode'
-import { rateLimiter } from '../../middleware/rateLimiter'
+import express, { Router } from "express";
+import { decodeController } from "../../controllers/decode/decode";
+import { rateLimiter } from "../../middleware/rateLimiter";
 
-const router: Router = express.Router()
+const router: Router = express.Router();
 
-router.get("/", rateLimiter, decodeController)
+router.get("/", rateLimiter, decodeController);
 
-export default router
+export default router;
