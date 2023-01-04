@@ -17,7 +17,7 @@ describe("decode controller", () => {
   it("should return a 400 Bad Request status and relevant message if the url is not provided", () => {
     mockRequest = {
       query: {
-        encryptedUrl: "",
+        encodedUrl: "",
       },
     };
     decodeController(mockRequest as Request, mockResponse as Response);
@@ -31,7 +31,7 @@ describe("decode controller", () => {
   it("should return a 400 Bad Request status and url missing message if the url contains suspicious characters", () => {
     mockRequest = {
       query: {
-        encryptedUrl: "https://shorturl.com/<>LAM39AX",
+        encodedUrl: "https://shorturl.com/<>LAM39AX",
       },
     };
     decodeController(mockRequest as Request, mockResponse as Response);
@@ -45,7 +45,7 @@ describe("decode controller", () => {
   it("should return a 400 Bad Request status and relevant error message if the url provided is not a valid url", () => {
     mockRequest = {
       query: {
-        encryptedUrl: "xlvaev",
+        encodedUrl: "xlvaev",
       },
     };
     decodeController(mockRequest as Request, mockResponse as Response);
@@ -59,7 +59,7 @@ describe("decode controller", () => {
   it("should return a 400 Bad Request status and relevant error message if there is no path on the url", () => {
     mockRequest = {
       query: {
-        encryptedUrl: "https://shorturl.com",
+        encodedUrl: "https://shorturl.com",
       },
     };
     decodeController(mockRequest as Request, mockResponse as Response);
@@ -73,10 +73,10 @@ describe("decode controller", () => {
   it("should return a 404 not found and relevant error message if no matching url is found", () => {
     mockRequest = {
       query: {
-        encryptedUrl: "https://shorturl.com/XAV4391",
+        encodedUrl: "https://shorturl.com/XAV4391",
       },
     };
-    jest.spyOn(DatabaseQueries, "getEncryptedUrl").mockReturnValueOnce(null);
+    jest.spyOn(DatabaseQueries, "getEncodedUrl").mockReturnValueOnce(null);
 
     decodeController(mockRequest as Request, mockResponse as Response);
     expect(mockResponse.status).toBeCalledWith(404);
@@ -90,10 +90,10 @@ describe("decode controller", () => {
   it("should return a 200 success response and the url data if a matching url is found", () => {
     mockRequest = {
       query: {
-        encryptedUrl: "https://shorturl.com/XAV4391",
+        encodedUrl: "https://shorturl.com/XAV4391",
       },
     };
-    jest.spyOn(DatabaseQueries, "getEncryptedUrl").mockReturnValueOnce({
+    jest.spyOn(DatabaseQueries, "getEncodedUrl").mockReturnValueOnce({
       createdAt: 1672682487,
       id: "258aa2c",
       isActive: true,

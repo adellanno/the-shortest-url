@@ -1,27 +1,27 @@
 import { Request, Response } from "express";
 import validator from "validator";
-import { getEncryptedUrl } from "../../services/store/store";
+import { getEncodedUrl } from "../../services/store/store";
 import { transformResponse } from "../../utils/transformResponse";
 
 export const decodeController = (req: Request, res: Response) => {
   try {
-    let encryptedUrl: string = req.query.encryptedUrl as string;
+    let encodedUrl: string = req.query.encodedUrl as string;
 
-    if (!encryptedUrl) {
+    if (!encodedUrl) {
       return res.status(400).send(transformResponse("A url must be provided"));
       // this validator provides sanitisation as well and if any suspicious characters are found we will return a 400 response
-    } else if (!validator.isURL(encryptedUrl)) {
+    } else if (!validator.isURL(encodedUrl)) {
       return res
         .status(400)
         .send(transformResponse("The provided url is not valid"));
     }
 
     // users might not add http or https to url. The frontend might handle this but this is a failsafe
-    if (!/^https?:\/\//i.test(encryptedUrl)) {
-      encryptedUrl = 'http://' + encryptedUrl;
+    if (!/^https?:\/\//i.test(encodedUrl)) {
+      encodedUrl = 'http://' + encodedUrl;
     }
 
-    const path = new URL(encryptedUrl).pathname.split("/")[1];
+    const path = new URL(encodedUrl).pathname.split("/")[1];
 
     if (!path) {
       return res
@@ -29,7 +29,7 @@ export const decodeController = (req: Request, res: Response) => {
         .send(transformResponse("The provided url is not valid"));
     }
 
-    const shortUrl = getEncryptedUrl(path);
+    const shortUrl = getEncodedUrl(path);
 
     if (!shortUrl) {
       return res

@@ -9,7 +9,7 @@ describe("GET /decode", () => {
 
   it("responds with a 400 code if not url is provided", async () => {
     const response = await request(app)
-      .get("/decode?encryptedUrl=")
+      .get("/decode?encodedUrl=")
       .expect("Content-Type", /json/);
     expect(response.statusCode).toEqual(400);
     expect(response.body.message).toEqual("A url must be provided");
@@ -17,7 +17,7 @@ describe("GET /decode", () => {
 
   it("responds with a 400 code if the url contains suspicious characters", async () => {
     const response = await request(app)
-      .get("/decode?encryptedUrl=https://shortlink.com/KASGA93<>")
+      .get("/decode?encodedUrl=https://shortlink.com/KASGA93<>")
       .expect("Content-Type", /json/);
     expect(response.statusCode).toEqual(400);
     expect(response.body.message).toEqual("The provided url is not valid");
@@ -25,7 +25,7 @@ describe("GET /decode", () => {
 
   it("responds with a 404 code if the url cannot be found", async () => {
     const response = await request(app)
-      .get("/decode?encryptedUrl=https://shortlink.com/LFACM39")
+      .get("/decode?encodedUrl=https://shortlink.com/LFACM39")
       .expect("Content-Type", /json/);
     expect(response.statusCode).toEqual(404);
     expect(response.body.message).toEqual(
@@ -44,7 +44,7 @@ describe("GET /decode", () => {
     });
 
     const response = await request(app)
-      .get("/decode?encryptedUrl=https://shortlink.com/LFACM39")
+      .get("/decode?encodedUrl=https://shortlink.com/LFACM39")
       .expect("Content-Type", /json/);
     expect(response.statusCode).toEqual(200);
     expect(response.body).toEqual({
@@ -71,7 +71,7 @@ describe("GET /decode", () => {
     });
 
     const response = await request(app)
-      .get("/decode?encryptedUrl=shortlink.com/LFACM39")
+      .get("/decode?encodedUrl=shortlink.com/LFACM39")
       .expect("Content-Type", /json/);
     expect(response.statusCode).toEqual(200);
     expect(response.body).toEqual({
@@ -98,7 +98,7 @@ describe("GET /decode", () => {
     });
 
     const response = await request(app)
-      .get("/decode?encryptedUrl=www.shortlink.com/LFACM39")
+      .get("/decode?encodedUrl=www.shortlink.com/LFACM39")
       .expect("Content-Type", /json/);
     expect(response.statusCode).toEqual(200);
     expect(response.body).toEqual({

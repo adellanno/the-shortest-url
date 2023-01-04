@@ -1,22 +1,22 @@
 import NodeCache from "../database";
-import { getEncryptedUrl, storeEncryptedUrl } from "../store";
+import { getEncodedUrl, storeEncodedUrl } from "../store";
 
 describe("database", () => {
   beforeEach(() => {
     Date.now = jest.fn(() => 1672679916000);
   });
 
-  describe("#storeEncryptedUrl", () => {
-    it("should not store the encrypted url if unique id is missing", () => {
+  describe("#storeEncodedUrl", () => {
+    it("should not store the encoded url if unique id is missing", () => {
       const setMock = jest.spyOn(NodeCache, "set");
-      storeEncryptedUrl({ id: "", url: "https://example.com/page/125124" });
+      storeEncodedUrl({ id: "", url: "https://example.com/page/125124" });
       expect(setMock).toBeCalledTimes(0);
     });
 
-    it("should correctly store the encrypted url if all data is present and return the transformed object", () => {
+    it("should correctly store the encoded url if all data is present and return the transformed object", () => {
       const setMock = jest.spyOn(NodeCache, "set");
       expect(
-        storeEncryptedUrl({
+        storeEncodedUrl({
           id: "MA9GFA9",
           url: "https://example.com/page/125124",
         })
@@ -29,13 +29,13 @@ describe("database", () => {
     });
   });
 
-  describe("#getEncryptedUrl", () => {
-    it("should return null if no encrypted url is found", () => {
+  describe("#getEncodedUrl", () => {
+    it("should return null if no encoded url is found", () => {
       jest.spyOn(NodeCache, "get").mockReturnValue(null);
-      expect(getEncryptedUrl("HA0429A")).toEqual(null);
+      expect(getEncodedUrl("HA0429A")).toEqual(null);
     });
 
-    it("should return encrypted url object if a matching id is found", () => {
+    it("should return encoded url object if a matching id is found", () => {
       jest.spyOn(NodeCache, "get").mockReturnValue({
         id: "MA9GFA9",
         url: "https://example.com/page/125124",
@@ -44,7 +44,7 @@ describe("database", () => {
         isDeleted: false,
         createdAt: 1672676589,
       });
-      expect(getEncryptedUrl("HA0429A")).toEqual({
+      expect(getEncodedUrl("HA0429A")).toEqual({
         id: "MA9GFA9",
         url: "https://example.com/page/125124",
         shortUrl: "https://shorturl.com/MA9GFA9",

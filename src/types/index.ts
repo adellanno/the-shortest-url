@@ -3,7 +3,7 @@ export type ResponseObject = {
   data: ShortUrl | CreateShortUrlResponse | null;
 };
 
-export type EncryptedUrlObject = {
+export type EncodedUrlObject = {
   id: string;
   url: string;
 };

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import validator from "validator";
 import { encodeUrl } from "../../services/encodeUrl";
-import { getEncryptedUrl, storeEncryptedUrl } from "../../services/store/store";
-import { EncryptedUrlObject } from "../../types";
+import { getEncodedUrl, storeEncodedUrl } from "../../services/store/store";
+import { EncodedUrlObject } from "../../types";
 import { transformResponse } from "../../utils/transformResponse";
 
 export const encodeController = (req: Request, res: Response) => {
@@ -19,13 +19,13 @@ export const encodeController = (req: Request, res: Response) => {
         .send(transformResponse("The provided url is not valid"));
     }
 
-    const encodedUrlObject: EncryptedUrlObject = encodeUrl(url);
+    const encodedUrlObject: EncodedUrlObject = encodeUrl(url);
 
     // hash collision prevention
-    const verifiedUnqiqueUrlObject: EncryptedUrlObject =
+    const verifiedUnqiqueUrlObject: EncodedUrlObject =
       recursiveCollisionCheck(encodedUrlObject);
 
-    const response = storeEncryptedUrl(verifiedUnqiqueUrlObject);
+    const response = storeEncodedUrl(verifiedUnqiqueUrlObject);
 
     if (response && !(response instanceof Boolean)) {
       return res.status(200).send(transformResponse("Success.", response));
@@ -46,10 +46,10 @@ export const encodeController = (req: Request, res: Response) => {
 };
 
 export const recursiveCollisionCheck = (
-  encodedUrlObject: EncryptedUrlObject
-): EncryptedUrlObject => {
-  if (getEncryptedUrl(encodedUrlObject.id)) {
-    const newEncodedUrlObject: EncryptedUrlObject = encodeUrl(
+  encodedUrlObject: EncodedUrlObject
+): EncodedUrlObject => {
+  if (getEncodedUrl(encodedUrlObject.id)) {
+    const newEncodedUrlObject: EncodedUrlObject = encodeUrl(
       encodedUrlObject.url
     );
     recursiveCollisionCheck(newEncodedUrlObject);
