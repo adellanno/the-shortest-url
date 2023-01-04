@@ -106,4 +106,4 @@ Using AWS Lambda instead of express was considered but due to the small scale of
 
 ## Step 5 – Video Demonstration
 
-<iframe src="https://drive.google.com/file/d/1Np5UDws7c7QdW6NjZ3tCszBuJtWdjjNB/preview" width="640" height="480" allow="autoplay"></iframe>
+https://drive.google.com/file/d/1Np5UDws7c7QdW6NjZ3tCszBuJtWdjjNB/preview
