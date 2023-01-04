@@ -1,4 +1,4 @@
-import express, { Router, Request, Response } from 'express';
+import express, { Router } from 'express';
 import { decodeController } from '../../controllers/decode/decode'
 import { rateLimiter } from '../../middleware/rateLimiter'
 

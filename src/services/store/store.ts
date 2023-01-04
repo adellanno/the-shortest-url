@@ -4,7 +4,7 @@ import { EncryptedUrlObject, ShortUrl } from '../../types'
 
 // abstraction of a database layer allowing this faux database (using node-cache) to be easily swapped in future
 
-export const storeEncryptedUrl = (EncryptedUrlObject: EncryptedUrlObject): ShortUrl | Boolean => {
+export const storeEncryptedUrl = (EncryptedUrlObject: EncryptedUrlObject): ShortUrl | boolean => {
     const { id, url } = EncryptedUrlObject;
 
     if (!id || !url) return false
