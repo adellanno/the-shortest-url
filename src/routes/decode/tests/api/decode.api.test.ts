@@ -1,4 +1,4 @@
-import { app } from "../../../../../index";
+import { app } from "../../../../../server";
 import request from "supertest";
 import NodeCache from "../../../../services/store/database";
 
@@ -45,6 +45,60 @@ describe("GET /decode", () => {
 
     const response = await request(app)
       .get("/decode?encryptedUrl=https://shortlink.com/LFACM39")
+      .expect("Content-Type", /json/);
+    expect(response.statusCode).toEqual(200);
+    expect(response.body).toEqual({
+      message: "Success.",
+      data: {
+        createdAt: 1672682487,
+        id: "LFACM39",
+        isActive: true,
+        isDeleted: false,
+        shortUrl: "https://shorturl.com/LFACM39",
+        url: "https://example.com/page/42652461",
+      },
+    });
+  });
+
+  it("responds with a 200 code if the protocol is excluded from the url in the query parameter", async () => {
+    NodeCache.set("LFACM39", {
+      createdAt: 1672682487,
+      id: "LFACM39",
+      isActive: true,
+      isDeleted: false,
+      shortUrl: "https://shorturl.com/LFACM39",
+      url: "https://example.com/page/42652461",
+    });
+
+    const response = await request(app)
+      .get("/decode?encryptedUrl=shortlink.com/LFACM39")
+      .expect("Content-Type", /json/);
+    expect(response.statusCode).toEqual(200);
+    expect(response.body).toEqual({
+      message: "Success.",
+      data: {
+        createdAt: 1672682487,
+        id: "LFACM39",
+        isActive: true,
+        isDeleted: false,
+        shortUrl: "https://shorturl.com/LFACM39",
+        url: "https://example.com/page/42652461",
+      },
+    });
+  });
+
+  it("responds with a 200 code if the protocol is excluded and only 'www' is used in the url", async () => {
+    NodeCache.set("LFACM39", {
+      createdAt: 1672682487,
+      id: "LFACM39",
+      isActive: true,
+      isDeleted: false,
+      shortUrl: "https://shorturl.com/LFACM39",
+      url: "https://example.com/page/42652461",
+    });
+
+    const response = await request(app)
+      .get("/decode?encryptedUrl=www.shortlink.com/LFACM39")
       .expect("Content-Type", /json/);
     expect(response.statusCode).toEqual(200);
     expect(response.body).toEqual({

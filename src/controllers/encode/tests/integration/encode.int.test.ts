@@ -34,9 +34,6 @@ describe("encode controller integration tests", () => {
           id: expect.any(String),
           url: "https://example.com/page/1/article/45",
           shortUrl: expect.any(String),
-          isActive: true,
-          isDeleted: false,
-          createdAt: expect.any(Number),
         }),
       })
     );

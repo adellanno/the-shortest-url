@@ -106,10 +106,7 @@ describe("encode controller", () => {
     };
     jest.spyOn(DatabaseQueries, "getEncryptedUrl").mockReturnValueOnce(null);
     jest.spyOn(DatabaseQueries, "storeEncryptedUrl").mockReturnValueOnce({
-      createdAt: 1672682487,
       id: "258aa2c",
-      isActive: true,
-      isDeleted: false,
       shortUrl: "https://shorturl.com/258aa2c",
       url: "https://example.com/page/1325335",
     });
@@ -120,10 +117,7 @@ describe("encode controller", () => {
     expect(mockResponse.send).toBeCalledWith({
       message: "Success.",
       data: {
-        createdAt: 1672682487,
         id: "258aa2c",
-        isActive: true,
-        isDeleted: false,
         shortUrl: "https://shorturl.com/258aa2c",
         url: "https://example.com/page/1325335",
       },
