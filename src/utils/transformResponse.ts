@@ -1,8 +1,8 @@
-import { ShortUrl, ResponseObject } from "../types";
+import { ShortUrl, ResponseObject, CreateShortUrlResponse} from "../types";
 
 export const transformResponse = (
   message: string,
-  data?: ShortUrl
+  data?: ShortUrl | CreateShortUrlResponse
 ): ResponseObject => {
   return {
     message,

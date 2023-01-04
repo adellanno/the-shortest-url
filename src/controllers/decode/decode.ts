@@ -5,7 +5,7 @@ import { transformResponse } from "../../utils/transformResponse";
 
 export const decodeController = (req: Request, res: Response) => {
   try {
-    const encryptedUrl: string = req.query.encryptedUrl as string;
+    let encryptedUrl: string = req.query.encryptedUrl as string;
 
     if (!encryptedUrl) {
       return res.status(400).send(transformResponse("A url must be provided"));
@@ -14,6 +14,11 @@ export const decodeController = (req: Request, res: Response) => {
       return res
         .status(400)
         .send(transformResponse("The provided url is not valid"));
+    }
+
+    // users might not add http or https to url. The frontend might handle this but this is a failsafe
+    if (!/^https?:\/\//i.test(encryptedUrl)) {
+      encryptedUrl = 'http://' + encryptedUrl;
     }
 
     const path = new URL(encryptedUrl).pathname.split("/")[1];
@@ -38,6 +43,7 @@ export const decodeController = (req: Request, res: Response) => {
 
     return res.status(200).send(transformResponse("Success.", shortUrl));
   } catch (error) {
+    console.log('error: ', error)
     return res
       .status(500)
       .send(

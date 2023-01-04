@@ -8,6 +8,6 @@ module.exports = {
     node: true,
   },
   rules: {
-    "@typescript-eslint/ban-types": "off"
-  }
+    "@typescript-eslint/ban-types": "off",
+  },
 };

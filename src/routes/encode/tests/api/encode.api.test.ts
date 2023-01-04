@@ -1,4 +1,4 @@
-import { app } from "../../../../../index";
+import { app } from "../../../../../server";
 import request from "supertest";
 import NodeCache from "../../../../services/store/database";
 
@@ -44,10 +44,7 @@ describe("POST /encode", () => {
     expect(response.body).toEqual({
       message: "Success.",
       data: {
-        createdAt: expect.any(Number),
         id: expect.any(String),
-        isActive: true,
-        isDeleted: false,
         shortUrl: expect.any(String),
         url: "https://example.com/page/1/article/2",
       },

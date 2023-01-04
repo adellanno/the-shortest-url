@@ -21,10 +21,7 @@ describe("database", () => {
           url: "https://example.com/page/125124",
         })
       ).toEqual({
-        createdAt: 1672679916,
         id: "MA9GFA9",
-        isActive: true,
-        isDeleted: false,
         shortUrl: "https://shorturl.com/MA9GFA9",
         url: "https://example.com/page/125124",
       });
