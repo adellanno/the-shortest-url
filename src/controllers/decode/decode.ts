@@ -14,7 +14,7 @@ export const decodeController = ((req: Request, res: Response) => {
             return res.status(400).send(transformResponse("The provided url is not valid"))
         } 
 
-        let path = new URL(encryptedUrl).pathname.split('/')[1]
+        const path = new URL(encryptedUrl).pathname.split('/')[1]
         
         if (!path) {
             return res.status(400).send(transformResponse("The provided url is not valid"))
