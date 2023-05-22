@@ -65,7 +65,7 @@ encoded - a string containing a shortened url
 
 Example:
 ```bash
-curl -X GET http://127.0.0.1:8000/decode?encodedUrl="https://shorturl.com/a80724f"
+curl -X GET http://127.0.0.1:8000/decode?encodedUrl=https://shorturl.com/a80724f
 
 # Response:
 {
